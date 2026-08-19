@@ -5,7 +5,7 @@ public class Main {
 
         // The information for the delivery
         String MemberID = "M-OO42";
-        String ProduceCode = "BNS";
+        String ProduceCode = "BNS(Beans)";
         double mass = 236.0;
         int QualityScore = 91;
 
