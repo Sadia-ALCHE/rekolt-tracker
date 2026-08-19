@@ -38,7 +38,7 @@ public class Main {
         System.out.println("REKOLT Planters’ Cooperative Produce Tracker");
         System.out.println("--------------------------------------------");
 
-        System.out.printf("Member: %s%n", MemberId);
+        System.out.printf("Member: %s%n", MemberID);
         System.out.printf("Produce: %s%n", ProduceCode);
         System.out.printf("Mass: %.2f kg%n", mass);
         System.out.printf("Quality Score: %d%n", QualityScore);
