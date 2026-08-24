@@ -65,7 +65,7 @@ public class Objective_1 {
         System.out.printf("   %.2f x %.2f = %.2f MUR%n", BaseValue, GradeMultiplier, GradeValue);
         System.out.printf("%n3. Cereal category multiplier: %n");
         System.out.printf("   %.2f x %.2f = %.2f MUR%n", GradeValue, CategoryMultiplier, CategoryValue);
-        System.out.printf("%n4. Commission: %.2f MUR%n", Commission);
+        System.out.printf("%n4. Commission (5%%): %.2f MUR%n", Commission);
         System.out.printf("%n5. Transport levy: %n");
         System.out.printf("   236.00 kg x 2.00 =  %.2f MUR%n", TransportLevy);
 
