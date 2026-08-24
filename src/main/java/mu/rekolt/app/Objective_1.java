@@ -11,15 +11,29 @@ public class Objective_1 {
 
         // This part contains information about the payment
         double BasePriceForBeans = 90.0;
-        double GradeMultiplier = 1.15;
         double CategoryMultiplier = 1.00;
         double RateOfCommission = 0.05;
         double TransportLevyPerKg = 2.0;
 
         // This will help us to calculate the base value
-        double BaseValue = mass * BasePrice;
+        double BaseValue = mass * BasePriceForBeans;
 
         // Here's where we will be applying the grade multiplier
+        String Grade;
+        double GradeMultiplier;
+        if (QualityScore >= 85 && QualityScore <= 100) {
+            Grade ="A";
+            GradeMultiplier = 1.15;
+        } else if (QualityScore >= 70){
+            Grade ="B";
+            GradeMultiplier = 1.00;
+        } else if (QualityScore >= 50){
+            Grade ="C";
+            GradeMultiplier = 0.85;
+        } else {
+            Grade = "REJECTED";
+            GradeMultiplier = 0.00;
+        }
         double GradeValue = BaseValue * GradeMultiplier;
 
         // Here's where we will be applying the category multiplier
