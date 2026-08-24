@@ -53,21 +53,21 @@ public class Objective_1 {
         System.out.println("REKOLT Planters’ Cooperative Worked Example");
         System.out.println("--------------------------------------------");
 
-        System.out.println("Member M-0042, 236 kg of Pro, quality score 91");
+        System.out.println("Member M-0042, 236 kg of Beans(BNS), Quality Score 91");
         System.out.printf("Member: %s%n", MemberID);
         System.out.printf("Produce: %s%n", ProduceCode);
         System.out.printf("Mass: %.2f kg%n", mass);
         System.out.printf("Quality Score: %d%n", QualityScore);
 
-        System.out.printf("%n1. Base value");
-        System.out.printf("   236.00 kg x 90.00 = %.2f MUR", BaseValue);
-        System.out.printf("2. Grade %s multiplier: ", Grade);
-        System.out.printf("   %.2f x %.2f = %.2f MUR", BaseValue, GradeMultiplier, GradeValue);
-        System.out.printf("3. Cereal category multiplier: %n");
-        System.out.printf("   %.2f x %.2f = %.2f MUR", GradeValue, CategoryMultiplier, CategoryValue);
-        System.out.printf("4. Commission: %.2f MUR", Commission);
-        System.out.printf("5. Transport levy: %n");
-        System.out.printf("   236.00 kg x 2.00 =  %.2f MUR", TransportLevy);
+        System.out.printf("%n1. Base value:%n");
+        System.out.printf("   236.00 kg x 90.00 = %.2f MUR%n", BaseValue);
+        System.out.printf("%n2. Grade %s multiplier: %n", Grade);
+        System.out.printf("   %.2f x %.2f = %.2f MUR%n", BaseValue, GradeMultiplier, GradeValue);
+        System.out.printf("%n3. Cereal category multiplier: %n");
+        System.out.printf("   %.2f x %.2f = %.2f MUR%n", GradeValue, CategoryMultiplier, CategoryValue);
+        System.out.printf("%n4. Commission: %.2f MUR%n", Commission);
+        System.out.printf("%n5. Transport levy: %n");
+        System.out.printf("   236.00 kg x 2.00 =  %.2f MUR%n", TransportLevy);
 
         System.out.printf("%nNET PAYABLE: %.2f MUR%n", NetPayable);
     }
