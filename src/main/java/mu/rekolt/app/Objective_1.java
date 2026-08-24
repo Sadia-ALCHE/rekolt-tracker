@@ -14,7 +14,6 @@ public class Objective_1 {
         double categoryMultiplier = 1.00;
         double rateOfCommission = 0.05;
         int levyRatePerKg = 2;
-        double transportLevyPerKg = 2.0;
 
         // This will help us to calculate the base value
         double baseValue = mass * basePriceForBeans;
@@ -40,14 +39,21 @@ public class Objective_1 {
         // Here's where we will be applying the category multiplier
         double categoryValue = gradeValue * categoryMultiplier;
 
-        // This will help us to calculate our commission
-        double commission = categoryValue * rateOfCommission;
+        // Calculating deductions and net payable
+        double commission;
+        double transportLevy;
+        double netPayable;
 
-        // This will help us to calculate the transport levy
-        double transportLevy = mass * (double) levyRatePerKg;
-
-        // This will help us calculate our net payable
-        double NetPayable = categoryValue - commission - transportLevy;
+        if (grade.equals("REJECT")) {
+            // Rejected deliveries have zero value and no deductions.
+            commission = 0.0;
+            transportLevy = 0.0;
+            netPayable = 0.0;
+        } else {
+            commission = categoryValue * rateOfCommission;
+            transportLevy = mass * (double) levyRatePerKg;
+            netPayable = categoryValue - commission - transportLevy;
+        }
 
         // Printing Results
         System.out.println("REKOLT Planters’ Cooperative Worked Example");
@@ -69,6 +75,6 @@ public class Objective_1 {
         System.out.printf("%n5. Transport levy: %n");
         System.out.printf("   236.00 kg x 2.00 =  %.2f MUR%n", transportLevy);
 
-        System.out.printf("%nNET PAYABLE: %.2f MUR%n", NetPayable);
+        System.out.printf("%nNET PAYABLE: %.2f MUR%n", netPayable);
     }
 }
