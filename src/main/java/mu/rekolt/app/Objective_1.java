@@ -13,6 +13,7 @@ public class Objective_1 {
         double BasePriceForBeans = 90.0;
         double CategoryMultiplier = 1.00;
         double RateOfCommission = 0.05;
+        int LevyRatePerKg = 2;
         double TransportLevyPerKg = 2.0;
 
         // This will help us to calculate the base value
@@ -22,13 +23,13 @@ public class Objective_1 {
         String Grade;
         double GradeMultiplier;
         if (QualityScore >= 85 && QualityScore <= 100) {
-            Grade ="A";
+            Grade = "A";
             GradeMultiplier = 1.15;
-        } else if (QualityScore >= 70){
-            Grade ="B";
+        } else if (QualityScore >= 70) {
+            Grade = "B";
             GradeMultiplier = 1.00;
-        } else if (QualityScore >= 50){
-            Grade ="C";
+        } else if (QualityScore >= 50) {
+            Grade = "C";
             GradeMultiplier = 0.85;
         } else {
             Grade = "REJECTED";
@@ -43,26 +44,31 @@ public class Objective_1 {
         double Commission = CategoryValue * RateOfCommission;
 
         // This will help us to calculate the transport levy
-        double TransportLevy = mass * TransportLevyPerKg;
+        double TransportLevy = mass * (double) LevyRatePerKg;
 
         // This will help us calculate our net payable
         double NetPayable = CategoryValue - Commission - TransportLevy;
 
         // Printing Results
-        System.out.println("REKOLT Planters’ Cooperative Produce Tracker");
+        System.out.println("REKOLT Planters’ Cooperative Worked Example");
         System.out.println("--------------------------------------------");
 
+        System.out.println("Member M-0042, 236 kg of Pro, quality score 91");
         System.out.printf("Member: %s%n", MemberID);
         System.out.printf("Produce: %s%n", ProduceCode);
         System.out.printf("Mass: %.2f kg%n", mass);
         System.out.printf("Quality Score: %d%n", QualityScore);
 
-        System.out.printf("%nBase Value: %.2f MUR%n", BaseValue);
-        System.out.printf("Grade Value: %.2f MUR%n", GradeValue);
-        System.out.printf("Category Value: %.2f MUR%n", CategoryValue);
-        System.out.printf("Commission: %.2f MUR%n", Commission);
-        System.out.printf("Transport Levy: .%.2f MUR%n", TransportLevy);
+        System.out.printf("%n1. Base value");
+        System.out.printf("   236.00 kg x 90.00 = %.2f MUR", BaseValue);
+        System.out.printf("2. Grade %s multiplier: ", Grade);
+        System.out.printf("   %.2f x %.2f = %.2f MUR", BaseValue, GradeMultiplier, GradeValue);
+        System.out.printf("3. Cereal category multiplier: %n");
+        System.out.printf("   %.2f x %.2f = %.2f MUR", GradeValue, CategoryMultiplier, CategoryValue);
+        System.out.printf("4. Commission: %.2f MUR", Commission);
+        System.out.printf("5. Transport levy: %n");
+        System.out.printf("   236.00 kg x 2.00 =  %.2f MUR", TransportLevy);
 
-        System.out.printf("%nNet Payable: %.2f MUR%n", NetPayable);
+        System.out.printf("%nNET PAYABLE: %.2f MUR%n", NetPayable);
     }
 }
