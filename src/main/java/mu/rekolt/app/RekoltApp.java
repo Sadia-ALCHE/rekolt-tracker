@@ -1,13 +1,13 @@
 package mu.rekolt.app;
 
-public class Objective_1 {
+public class RekoltApp {
     public static void main(String[] args) {
 
-        //Stating the inputs/information needed for delivery
-        String memberId = "M-0042"; //This is the member's identity number
-        String produceCode = "BNS"; // This is the code assigned to our produce. Eg. 'BNS' is for Beans.
-        double mass = 236.0;    // This is the kg weight for our produce
-        int qualityScore = 91;   // Whole numbered quality score ranked from (0-100)
+        //Delivery details for the worked examples
+        String memberId = "M-0042";
+        String produceCode = "BNS";
+        double mass = 236.0;
+        int qualityScore = 91;
 
         // This part contains payment rules for beans
         double basePriceForBeans = 90.0;
@@ -66,14 +66,14 @@ public class Objective_1 {
         System.out.printf("Quality Score: %d%n", qualityScore);
 
         System.out.printf("%n1. Base value:%n");
-        System.out.printf("   236.00 kg x 90.00 = %.2f MUR%n", baseValue);
+        System.out.printf("   %.2f kg x %.2f = %.2f MUR%n", mass, basePriceForBeans, baseValue);
         System.out.printf("%n2. Grade %s multiplier: %n", grade);
         System.out.printf("   %.2f x %.2f = %.2f MUR%n", baseValue, gradeMultiplier, gradeValue);
         System.out.printf("%n3. Cereal category multiplier: %n");
         System.out.printf("   %.2f x %.2f = %.2f MUR%n", gradeValue, categoryMultiplier, categoryValue);
         System.out.printf("%n4. Commission (5%%): %.2f MUR%n", commission);
         System.out.printf("%n5. Transport levy: %n");
-        System.out.printf("   236.00 kg x 2.00 =  %.2f MUR%n", transportLevy);
+        System.out.printf("   %.2f kg x %.2f = %.2f MUR%n", mass, (double) levyRatePerKg, transportLevy);
 
         System.out.printf("%nNET PAYABLE: %.2f MUR%n", netPayable);
     }
