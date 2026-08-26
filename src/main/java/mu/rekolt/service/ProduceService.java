@@ -4,12 +4,12 @@ import mu.rekolt.model.Produce;
 
 // The fixed price used to build the correct Produce for a given code via a switch statement.
 
-public final class Price {
+public final class ProduceService {
 
     private static final String[] CODES = {"MZE", "BNS", "POT", "TEA"};
     private static final double[] BASE_PRICES = {30.0, 90.0, 45.0, 25.0};
 
-    private Price() {
+    private ProduceService() {
         // utility class which has not been instantiated
     }
 
