@@ -7,6 +7,7 @@ public class Member {
     private final String name;
 
     public Member(String id, String name) {
+        // Id must look like M-0042: letter M, hyphen, 4 digits.
         if (id == null || !id.matches("M-\\d{4}")) {
             throw new IllegalArgumentException("Member id must match M-#### (e.g. M-0042).");
         }
