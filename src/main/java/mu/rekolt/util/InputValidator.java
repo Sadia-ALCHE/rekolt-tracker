@@ -37,6 +37,17 @@ public class InputValidator {
         }
     }
 
+    public String readNonBlankText(String prompt, String fieldLabel) {
+        while (true) {
+            System.out.print(prompt);
+            String line = scanner.nextLine().trim();
+            if (!line.isEmpty()) {
+                return line;
+            }
+            System.out.println(fieldLabel + " cannot be empty. Please try again.");
+        }
+    }
+
     public String readProduceCode(String prompt) {
         while (true) {
             System.out.print(prompt);
