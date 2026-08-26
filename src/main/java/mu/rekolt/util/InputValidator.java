@@ -1,10 +1,9 @@
 package mu.rekolt.util;
 
-import mu.rekolt.service.Price;
+import mu.rekolt.service.ProduceService;
 import java.util.Scanner;
 
-// Every console prompt goes through here. Each method loops until the
-// user enters something valid, so that bad input never crashes the program.
+// Handles user input and keeps asking until valid data is entered.
 public class InputValidator {
     private final Scanner scanner;
     public InputValidator(Scanner scanner) {
@@ -38,22 +37,11 @@ public class InputValidator {
         }
     }
 
-    public String readNonBlankText(String prompt, String fieldLabel) {
-        while (true) {
-            System.out.print(prompt);
-            String line = scanner.nextLine().trim();
-            if (!line.isEmpty()) {
-                return line;
-            }
-            System.out.println(fieldLabel + " cannot be empty. Please try again.");
-        }
-    }
-
     public String readProduceCode(String prompt) {
         while (true) {
             System.out.print(prompt);
             String line = scanner.nextLine().trim();
-            if (Price.isValidCode(line)) {
+            if (ProduceService.isValidCode(line)) {
                 return line.toUpperCase();
             }
             System.out.println("Produce code must be one of MZE, BNS, POT or TEA. Please try again.");
