@@ -75,7 +75,7 @@ public class Delivery {
     }
 
     public String getDeliveryId() {
-         deliveryId;
+        return deliveryId;
     }
 
     public Member getMember() {
@@ -99,7 +99,7 @@ public class Delivery {
     }
 
     public Grade getGrade() {
-         grade;
+        return grade;
     }
 
     @Override
