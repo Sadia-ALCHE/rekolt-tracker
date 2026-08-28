@@ -59,7 +59,7 @@ public class Main {
                     printSeasonFigures();
                     break;
                 case 3:
-                    System.out.println("Season report generation is coming in Objective 6.");
+                    System.out.println("Season report generation loading");
                     break;
                 case 4:
                     System.out.println("Goodbye.");
