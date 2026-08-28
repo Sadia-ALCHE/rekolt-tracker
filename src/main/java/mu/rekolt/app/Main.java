@@ -63,7 +63,7 @@ public class Main {
         String memberId = input.readMemberId("Member identifier : ");
         String memberName = input.readNonBlankText("Member name : ", "Member name");
 
-        Member member = new Member(memberName, memberId);
+        Member member = new Member(memberId, memberName);
 
         String produceCode = input.readProduceCode("Produce code (MZE/BNS/POT/TEA) : ");
         Produce produce = ProduceService.createProduce(produceCode);
