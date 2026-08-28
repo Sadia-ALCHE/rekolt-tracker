@@ -88,6 +88,18 @@ public class SeasonService {
     public Map<String, List<Delivery>> getDeliveriesPerMember() {
         return deliveriesPerMember;
     }
+    // Returns a copy of deliveries with REJECT grades removed using an Iterator.
+    public List<Delivery> deliveriesWithRejectedRemoved() {
+        List<Delivery> copy = new ArrayList<>(deliveries);
+        Iterator<Delivery> iterator = copy.iterator();
+        while (iterator.hasNext()) {
+            Delivery delivery = iterator.next();
+            if (delivery.getGrade() == Grade.REJECT) {
+                iterator.remove();
+            }
+        }
+        return copy;
+    }
     public Set<String> getMemberIds() {
         return memberIds;
     }
