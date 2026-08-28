@@ -1,9 +1,12 @@
 package mu.rekolt.service;
 
 import mu.rekolt.model.Delivery;
+import mu.rekolt.model.Grade;
 
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -61,6 +64,16 @@ public class SeasonService {
         List<Delivery> sorted = new ArrayList<>(deliveries);
         Collections.sort(sorted);
         return sorted.subList(0, Math.min(limit, sorted.size()));
+    }
+
+    // Searches for a delivery by ID and returns empty if not found.
+    public Optional<Delivery> findDeliveryById(String deliveryId) {
+        for (Delivery delivery : deliveries) {
+            if (delivery.getDeliveryId().equals(deliveryId)) {
+                return Optional.of(delivery);
+            }
+        }
+        return Optional.empty();
     }
 
     public double[][] getWeeklyGrid() {
