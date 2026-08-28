@@ -16,6 +16,25 @@ public class Main {
 
     public Main(Scanner scanner) {
         input = new InputValidator(scanner);
+
+        // A dozen sample deliveries.
+        Member pamela = new Member("M-0042", "Pamela Lion");
+        Member kimu = new Member("M-0117", "Babatunde Kimunila");
+        Member aidas = new Member("M-0088", "Aidas Utamilah");
+        Member siya = new Member("M-0021", "Siya Hammed");
+
+        deliveries.add(new Delivery("D-1001", pamela, ProduceService.createProduce("BNS"), 236.0, 91, 3));
+        deliveries.add(new Delivery("D-1002", kimu, ProduceService.createProduce("MZE"), 412.5, 78, 1));
+        deliveries.add(new Delivery("D-1003", aidas, ProduceService.createProduce("POT"), 150.0, 55, 2));
+        deliveries.add(new Delivery("D-1004", siya, ProduceService.createProduce("MZE"), 300.0, 60, 5));
+        deliveries.add(new Delivery("D-1005", pamela, ProduceService.createProduce("TEA"), 88.3, 96, 1));
+        deliveries.add(new Delivery("D-1006", kimu, ProduceService.createProduce("BNS"), 390.5, 82, 2));
+        deliveries.add(new Delivery("D-1007", aidas, ProduceService.createProduce("MZE"), 180.0, 40, 1)); // REJECT
+        deliveries.add(new Delivery("D-1008", siya, ProduceService.createProduce("POT"), 120.5, 91, 5));
+        deliveries.add(new Delivery("D-1009", pamela, ProduceService.createProduce("POT"), 95.0, 68, 4));
+        deliveries.add(new Delivery("D-1010", kimu, ProduceService.createProduce("TEA"), 60.0, 88, 3));
+        deliveries.add(new Delivery("D-1011", aidas, ProduceService.createProduce("BNS"), 210.0, 73, 4));
+        deliveries.add(new Delivery("D-1012", siya, ProduceService.createProduce("TEA"), 45.0, 84, 2));
     }
 
     public static void main(String[] args) {
