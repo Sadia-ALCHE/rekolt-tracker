@@ -68,12 +68,12 @@ public class Main {
         String produceCode = input.readProduceCode("Produce code (MZE/BNS/POT/TEA) : ");
         Produce produce = ProduceService.createProduce(produceCode);
 
-        double massKg = input.readMass("Mass in kg : ");
+        double mass = input.readMass("Mass in kg : ");
         int qualityScore = input.readQualityScore("Quality score (0-100) : ");
         int week = input.readWeek("Week of delivery (1-20) : ");
 
-        String deliveryId = "D-" + (1000 + deliveries.size());
-        Delivery delivery = new Delivery(deliveryId, member, produce, massKg, qualityScore, week);
+        String deliveryId = "D-" + (1000 + deliveries.size() + 1);
+        Delivery delivery = new Delivery(deliveryId, member, produce, mass, qualityScore, week);
         deliveries.add(delivery);
         printReceipt(delivery, true);
     }
