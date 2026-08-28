@@ -34,7 +34,7 @@ public class SeasonService {
         memberIds.add(memberId);
         // Update the member's total payment
         double runningTotal = paymentPerMember.getOrDefault(memberId, 0.0);
-        paymentPerMember.put(memberId, running_Total + delivery.netPayable());
+        paymentPerMember.put(memberId, runningTotal + delivery.netPayable());
         // Create a list if this member has not made a delivery yet
         if (!deliveriesPerMember.containsKey(memberId)) {
             deliveriesPerMember.put(memberId, new ArrayList<>());
@@ -59,6 +59,9 @@ public class SeasonService {
     }
     public String[] getProduceOrder() {
         return produceOrder;
+    }
+    public Map<String, Double> getPaymentPerMember() {
+        return paymentPerMember;
     }
     public Map<String, List<Delivery>> getDeliveriesPerMember() {
         return deliveriesPerMember;
