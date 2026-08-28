@@ -3,6 +3,7 @@ package mu.rekolt.service;
 import mu.rekolt.model.Delivery;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -54,6 +55,14 @@ public class SeasonService {
     public List<Delivery> getDeliveries() {
         return deliveries;
     }
+
+    // Returns the top N deliveries by value, using Delivery's own ordering.
+    public List<Delivery> topDeliveriesByValue(int limit) {
+        List<Delivery> sorted = new ArrayList<>(deliveries);
+        Collections.sort(sorted);
+        return sorted.subList(0, Math.min(limit, sorted.size()));
+    }
+
     public double[][] getWeeklyGrid() {
         return weeklyGrid;
     }
