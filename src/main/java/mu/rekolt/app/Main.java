@@ -125,14 +125,12 @@ public class Main {
         for (int week = 0; week < grid.length; week++) {
             double weekTotal = 0;
 
-            for (int col = 0; col < grid[week].length; col++) {
-                weekTotal += grid[week][col];
-            }
-            if (weekTotal < 0) {
+            for (int col = 0; col < grid[week].length; col++) { weekTotal += grid[week][col];}
+            if (weekTotal == 0.0) {
                 continue;
             }
 
-            System.out.printf("%-4d ", week);
+            System.out.printf("%-4d ", week + 1);
             for (int col = 0; col < grid[week].length; col++) {
                 System.out.printf("%8.1f", grid[week][col]);
             }
