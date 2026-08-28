@@ -86,18 +86,17 @@ public class Main {
 
     // Prints the detailed receipt
     private void printReceipt(Delivery delivery, boolean detailed) {
-        if (detailed) {
+        if (!detailed) {
+            printReceipt(delivery);
+            return;
+        }
             System.out.printf("Delivery %s recorded. Grade %s%n", delivery.getDeliveryId(), delivery.getGrade());
-
             System.out.printf("Base value %.2f MUR%n", delivery.baseValue());
             System.out.printf("Graded value %.2f MUR%n", delivery.gradedValue());
             System.out.printf("Categorised value %.2f MUR%n", delivery.categorisedValue());
             System.out.printf("Commission %.2f MUR%n", delivery.commission());
             System.out.printf("Transport levy %.2f MUR%n", delivery.transportLevy());
             System.out.printf("NET PAYABLE = %.2f MUR%n", delivery.netPayable());
-        } else {
-            printReceipt();
-        }
     }
 
     // Shows the amount of each produce recorded per week
