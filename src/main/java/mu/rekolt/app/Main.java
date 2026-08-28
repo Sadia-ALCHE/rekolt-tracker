@@ -8,6 +8,7 @@ import mu.rekolt.service.SeasonService;
 import mu.rekolt.util.InputValidator;
 
 import java.util.Scanner;
+import java.util.Optional;
 
 public class Main {
     private final SeasonService season = new SeasonService();
