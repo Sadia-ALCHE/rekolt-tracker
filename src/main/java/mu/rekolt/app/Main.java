@@ -108,12 +108,10 @@ public class Main {
         double[][] grid = new double[20][4];
 
         for (Delivery delivery : deliveries) {
-            for (int col = 0; col <= produceOrder.length; col++) {
+            for (int col = 0; col < produceOrder.length; col++) {
                 if (produceOrder[col].equals(
                         delivery.getProduce().getCode())) {
-
-                    grid[delivery.getWeek()][col]
-                            += delivery.getMass();
+                    grid[delivery.getWeek() - 1][col] += delivery.getMass();
                 }
             }
         }
