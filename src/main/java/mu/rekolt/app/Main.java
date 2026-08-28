@@ -146,5 +146,12 @@ public class Main {
 
             System.out.println();
         }
+        System.out.println();
+        Optional<Delivery> found = season.findDeliveryById("D-1001");
+        if (found.isPresent()) {
+            System.out.println("Found D-1001: " + found.get());
+        } else {
+            System.out.println("D-1001 not found.");
+        }
     }
 }
