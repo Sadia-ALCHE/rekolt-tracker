@@ -1,7 +1,7 @@
 package mu.rekolt.model;
 
 // One weighed load from one member. Runs the five payment steps.
-public class Delivery {
+public class Delivery implements Comparable<Delivery> {
 
     private final String deliveryId;
     private final Member member;
@@ -40,17 +40,14 @@ public class Delivery {
     public double baseValue() {
         return produce.baseValue(mass);
     }
-
     // Step 2
     public double gradedValue() {
         return baseValue() * grade.getMultiplier();
     }
-
     // Step 3
     public double categorisedValue() {
         return gradedValue() * produce.getCategoryMultiplier();
     }
-
     // Step 4: REJECT pays no commission
     public double commission() {
         if (grade == Grade.REJECT) {
@@ -58,7 +55,6 @@ public class Delivery {
         }
         return categorisedValue() * 0.05;
     }
-
     // Step 5: REJECT pays no transport levy
     public double transportLevy() {
         if (grade == Grade.REJECT) {
@@ -74,30 +70,30 @@ public class Delivery {
         return categorisedValue() - commission() - transportLevy();
     }
 
+    // Lets deliveries be sorted automatically, highest net payable first.
+    @Override
+    public int compareTo(Delivery other) {
+        return Double.compare(other.netPayable(), this.netPayable());
+    }
+
     public String getDeliveryId() {
         return deliveryId;
     }
-
     public Member getMember() {
         return member;
     }
-
     public Produce getProduce() {
         return produce;
     }
-
     public double getMass() {
         return mass;
     }
-
     public int getQualityScore() {
         return qualityScore;
     }
-
     public int getWeek() {
         return week;
     }
-
     public Grade getGrade() {
         return grade;
     }

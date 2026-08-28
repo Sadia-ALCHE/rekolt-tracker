@@ -4,14 +4,14 @@ import mu.rekolt.model.Delivery;
 import mu.rekolt.model.Member;
 import mu.rekolt.model.Produce;
 import mu.rekolt.service.ProduceService;
+import mu.rekolt.service.SeasonService;
 import mu.rekolt.util.InputValidator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+import java.util.Optional;
 
 public class Main {
-    private final List<Delivery> deliveries = new ArrayList<>();
+    private final SeasonService season = new SeasonService();
     private final InputValidator input;
 
     public Main(Scanner scanner) {
@@ -23,18 +23,18 @@ public class Main {
         Member aidas = new Member("M-0088", "Aidas Utamilah");
         Member siya = new Member("M-0021", "Siya Hammed");
 
-        deliveries.add(new Delivery("D-1001", pamela, ProduceService.createProduce("BNS"), 236.0, 91, 3));
-        deliveries.add(new Delivery("D-1002", kimu, ProduceService.createProduce("MZE"), 412.5, 78, 1));
-        deliveries.add(new Delivery("D-1003", aidas, ProduceService.createProduce("POT"), 150.0, 55, 2));
-        deliveries.add(new Delivery("D-1004", siya, ProduceService.createProduce("MZE"), 300.0, 60, 5));
-        deliveries.add(new Delivery("D-1005", pamela, ProduceService.createProduce("TEA"), 88.3, 96, 1));
-        deliveries.add(new Delivery("D-1006", kimu, ProduceService.createProduce("BNS"), 390.5, 82, 2));
-        deliveries.add(new Delivery("D-1007", aidas, ProduceService.createProduce("MZE"), 180.0, 40, 1)); // REJECT
-        deliveries.add(new Delivery("D-1008", siya, ProduceService.createProduce("POT"), 120.5, 91, 5));
-        deliveries.add(new Delivery("D-1009", pamela, ProduceService.createProduce("POT"), 95.0, 68, 4));
-        deliveries.add(new Delivery("D-1010", kimu, ProduceService.createProduce("TEA"), 60.0, 88, 3));
-        deliveries.add(new Delivery("D-1011", aidas, ProduceService.createProduce("BNS"), 210.0, 73, 4));
-        deliveries.add(new Delivery("D-1012", siya, ProduceService.createProduce("TEA"), 45.0, 84, 2));
+        season.recordDelivery(new Delivery("D-1001", pamela, ProduceService.createProduce("BNS"), 236.0, 91, 3));
+        season.recordDelivery(new Delivery("D-1002", kimu, ProduceService.createProduce("MZE"), 412.5, 78, 1));
+        season.recordDelivery(new Delivery("D-1003", aidas, ProduceService.createProduce("POT"), 150.0, 55, 2));
+        season.recordDelivery(new Delivery("D-1004", siya, ProduceService.createProduce("MZE"), 300.0, 60, 5));
+        season.recordDelivery(new Delivery("D-1005", pamela, ProduceService.createProduce("TEA"), 88.3, 96, 1));
+        season.recordDelivery(new Delivery("D-1006", kimu, ProduceService.createProduce("BNS"), 390.5, 82, 2));
+        season.recordDelivery(new Delivery("D-1007", aidas, ProduceService.createProduce("MZE"), 180.0, 40, 1)); // REJECT
+        season.recordDelivery(new Delivery("D-1008", siya, ProduceService.createProduce("POT"), 120.5, 91, 5));
+        season.recordDelivery(new Delivery("D-1009", pamela, ProduceService.createProduce("POT"), 95.0, 68, 4));
+        season.recordDelivery(new Delivery("D-1010", kimu, ProduceService.createProduce("TEA"), 60.0, 88, 3));
+        season.recordDelivery(new Delivery("D-1011", aidas, ProduceService.createProduce("BNS"), 210.0, 73, 4));
+        season.recordDelivery(new Delivery("D-1012", siya, ProduceService.createProduce("TEA"), 45.0, 84, 2));
     }
 
     public static void main(String[] args) {
@@ -90,10 +90,10 @@ public class Main {
         double mass = input.readMass("Mass in kg : ");
         int qualityScore = input.readQualityScore("Quality score (0-100) : ");
         int week = input.readWeek("Week of delivery (1-20) : ");
+        String deliveryId = "D-" + (1000 + season.getDeliveries().size() + 1);
 
-        String deliveryId = "D-" + (1000 + deliveries.size() + 1);
         Delivery delivery = new Delivery(deliveryId, member, produce, mass, qualityScore, week);
-        deliveries.add(delivery);
+        season.recordDelivery(delivery);
         printReceipt(delivery, true);
     }
 
@@ -123,29 +123,19 @@ public class Main {
         System.out.println();
         System.out.println("Weekly volume grid (kg)");
 
-        String[] produceOrder = {"MZE", "BNS", "POT", "TEA"};
-        double[][] grid = new double[20][4];
-
-        for (Delivery delivery : deliveries) {
-            for (int col = 0; col < produceOrder.length; col++) {
-                if (produceOrder[col].equals(
-                        delivery.getProduce().getCode())) {
-                    grid[delivery.getWeek() - 1][col] += delivery.getMass();
-                }
-            }
-        }
+        String[] produceOrder = season.getProduceOrder();
+        double[][] grid = season.getWeeklyGrid();
 
         System.out.print("Week ");
         for (String code : produceOrder) {
             System.out.printf("%8s", code);
         }
-
         System.out.println();
+
         for (int week = 0; week < grid.length; week++) {
             double weekTotal = 0;
-
             for (int col = 0; col < grid[week].length; col++) { weekTotal += grid[week][col];}
-            if (weekTotal == 0.0) {
+            if (weekTotal == 0) {
                 continue;
             }
 
