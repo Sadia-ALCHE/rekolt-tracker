@@ -44,7 +44,7 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("Goodbye.");
-                    running = true;
+                    running = false;
                     break;
             }
         }
