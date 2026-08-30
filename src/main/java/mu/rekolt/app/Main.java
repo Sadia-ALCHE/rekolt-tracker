@@ -3,12 +3,10 @@ package mu.rekolt.app;
 import mu.rekolt.model.Delivery;
 import mu.rekolt.model.Member;
 import mu.rekolt.model.Produce;
-import mu.rekolt.service.DocumentService;
 import mu.rekolt.service.ProduceService;
 import mu.rekolt.service.SeasonService;
 import mu.rekolt.util.InputValidator;
 
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.Optional;
 
@@ -49,13 +47,6 @@ public class Main {
     public void run() {
         System.out.println("REKOLT Planters' Cooperative Produce Tracker - Season 2026");
         mu.rekolt.service.ProduceService.printAllCategoryMultipliers();
-
-        try {
-            new DocumentService().writeTestDocument("output/test.docx");
-            System.out.println("Test document written successfully.");
-        } catch (IOException e) {
-            System.out.println("Failed to write test document: " + e.getMessage());
-        }
 
         boolean running = true;
         while (running) {
