@@ -64,8 +64,8 @@ rekolt-tracker/
 │ ├── git/ branch/merge history evidence
 │ ├── collections-rationale.md
 │ └── design/
-│ ├── design-v1.pdf the paper design (Objective 4)
-│ ├── design-v2.pdf the design as built (Objective 5)
+│ ├── design-v1.pdf the paper design 
+│ ├── design-v2.pdf the design as built 
 │ └── change-log.md deviations from design-v1
 ├── output/
 │ ├── run-log.txt one timestamped line per report generation
