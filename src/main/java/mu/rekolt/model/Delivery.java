@@ -76,8 +76,8 @@ public class Delivery implements Comparable<Delivery>, Payable, Reportable {
 
     @Override
     public String summaryLine() {
-        return deliveryId + " " + member.getId() + " " + produce.getCode()
-                + " " + mass + " kg " + grade + " " + netPayable();
+        return String.format("%-7s %-7s %-4s %7.1f kg %-6s %,10.2f",
+                deliveryId, member.getId(), produce.getCode(), mass, grade, netPayable());
     }
 
     // Lets deliveries be sorted automatically, highest net payable first.
