@@ -1,7 +1,7 @@
 package mu.rekolt.model;
 
 public class CashCropProduce extends Produce{
-    public cashCropProduce(String code, String name, double basePricePerKg) {
+    public CashCropProduce(String code, String name, double basePricePerKg) {
         super(code, name, basePricePerKg);
     }
     @Override
