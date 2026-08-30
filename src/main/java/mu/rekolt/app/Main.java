@@ -144,7 +144,6 @@ public class Main {
             for (int col = 0; col < grid[week].length; col++) {
                 System.out.printf("%8.1f", grid[week][col]);
             }
-
             System.out.println();
         }
     }
