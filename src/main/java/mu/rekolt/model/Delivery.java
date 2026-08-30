@@ -112,4 +112,18 @@ public class Delivery implements Comparable<Delivery>, Payable, Reportable {
     public String toString() {
         return String.format("%-7s %-7s %-4s %7.1f kg %-6s %,10.2f", deliveryId, member.getId(), produce.getCode(), mass, grade, netPayable());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {return true;
+        }
+        if (!(other instanceof Delivery)) {return false;
+        }
+        return deliveryId.equals(((Delivery) other).deliveryId);
+    }
+
+    @Override
+    public int hashCode() {
+        return deliveryId.hashCode();
+    }
 }
