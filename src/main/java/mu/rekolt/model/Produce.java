@@ -1,14 +1,12 @@
 package mu.rekolt.model;
 
-public class Produce {
+// Base class for different types of produce.
+public abstract class Produce {
     private final String code;
     private final String name;
     private final double basePricePerKg;
-    private final double categoryMultiplier;
-    private final String categoryName;
 
-    public Produce(String code, String name, double basePricePerKg,
-                   double categoryMultiplier, String categoryName) {
+    public Produce(String code, String name, double basePricePerKg) {
         if (code == null || code.isBlank()) {
             throw new IllegalArgumentException("Produce code is required.");
         }
@@ -18,37 +16,41 @@ public class Produce {
         this.code = code;
         this.name = name;
         this.basePricePerKg = basePricePerKg;
-        this.categoryMultiplier = categoryMultiplier;
-        this.categoryName = categoryName;
     }
+    public abstract double getCategoryMultiplier();
+    public abstract String getCategoryName();
 
-    //1 of the payment rules: mass x base price
+    // Calculates the base value.
     public double baseValue(double mass) {
         return mass * basePricePerKg;
     }
-
     public String getCode() {
         return code;
     }
-
     public String getName() {
         return name;
     }
-
     public double getBasePricePerKg() {
         return basePricePerKg;
-    }
-
-    public double getCategoryMultiplier() {
-        return categoryMultiplier;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
     }
 
     @Override
     public String toString() {
         return code + " (" + name + ")";
     }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {return true;
+        }
+        if (!(other instanceof Produce)) {
+            return false;
+        }
+        return code.equals(((Produce) other).code);
+    }
+    @Override
+    public int hashCode() {
+        return code.hashCode();
+    }
 }
+
+

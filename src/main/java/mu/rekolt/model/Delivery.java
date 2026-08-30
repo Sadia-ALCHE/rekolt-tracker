@@ -1,7 +1,10 @@
 package mu.rekolt.model;
 
+import mu.rekolt.service.Payable;
+import mu.rekolt.service.Reportable;
+
 // One weighed load from one member. Runs the five payment steps.
-public class Delivery implements Comparable<Delivery> {
+public class Delivery implements Comparable<Delivery>, Payable, Reportable {
 
     private final String deliveryId;
     private final Member member;
@@ -63,11 +66,18 @@ public class Delivery implements Comparable<Delivery> {
         return mass * 2.0;
     }
 
+    @Override
     public double netPayable() {
         if (grade == Grade.REJECT) {
             return 0.0;
         }
         return categorisedValue() - commission() - transportLevy();
+    }
+
+    @Override
+    public String summaryLine() {
+        return String.format("%-7s %-7s %-4s %7.1f kg %-6s %,10.2f",
+                deliveryId, member.getId(), produce.getCode(), mass, grade, netPayable());
     }
 
     // Lets deliveries be sorted automatically, highest net payable first.
@@ -101,5 +111,19 @@ public class Delivery implements Comparable<Delivery> {
     @Override
     public String toString() {
         return String.format("%-7s %-7s %-4s %7.1f kg %-6s %,10.2f", deliveryId, member.getId(), produce.getCode(), mass, grade, netPayable());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {return true;
+        }
+        if (!(other instanceof Delivery)) {return false;
+        }
+        return deliveryId.equals(((Delivery) other).deliveryId);
+    }
+
+    @Override
+    public int hashCode() {
+        return deliveryId.hashCode();
     }
 }

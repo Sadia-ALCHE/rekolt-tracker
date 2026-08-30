@@ -1,18 +1,20 @@
 package mu.rekolt.service;
 
+import mu.rekolt.model.CashCropProduce;
+import mu.rekolt.model.CerealProduce;
+import mu.rekolt.model.PerishableProduce;
 import mu.rekolt.model.Produce;
 
+import java.util.List;
+
 // The fixed price used to build the correct Produce for a given code via a switch statement.
-
 public final class ProduceService {
-
     private static final String[] CODES = {"MZE", "BNS", "POT", "TEA"};
     private static final double[] BASE_PRICES = {30.0, 90.0, 45.0, 25.0};
 
     private ProduceService() {
         // utility class which has not been instantiated
     }
-
     public static boolean isValidCode(String rawCode) {
         if (rawCode == null) {
             return false;
@@ -45,16 +47,30 @@ public final class ProduceService {
 
         switch (code) {
             case "MZE":
-                return new Produce(code, "Maize", basePrice, 1.00, "Cereal");
+                return new CerealProduce(code, "Maize", basePrice);
             case "BNS":
-                return new Produce(code, "Beans", basePrice, 1.00, "Cereal");
+                return new CerealProduce(code, "Beans", basePrice);
             case "POT":
-                return new Produce(code, "Potatoes", basePrice, 0.90, "Perishable");
+                return new PerishableProduce(code, "Potatoes", basePrice);
             case "TEA":
-                return new Produce(code, "Green tea leaf", basePrice, 1.10, "Cash crop");
+                return new CashCropProduce(code, "Green tea leaf", basePrice);
             default:
-                // Unreachable: isValidCode already rejected anything else.
+                // Invalid codes are already handled by isValidCode.
                 throw new IllegalArgumentException("Unknown produce code: " + code);
+        }
+    }
+
+    // Prints the multiplier for each type of produce.
+    public static void printAllCategoryMultipliers() {
+        List<Produce> produceTypes = List.of(
+                createProduce("MZE"),
+                createProduce("BNS"),
+                createProduce("POT"),
+                createProduce("TEA")
+        );
+
+        for (Produce produce : produceTypes) {
+            System.out.printf("%s (%s): x%.2f%n", produce.getCode(), produce.getCategoryName(), produce.getCategoryMultiplier());
         }
     }
 }

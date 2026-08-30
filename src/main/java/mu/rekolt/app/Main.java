@@ -46,6 +46,7 @@ public class Main {
 
     public void run() {
         System.out.println("REKOLT Planters' Cooperative Produce Tracker - Season 2026");
+        mu.rekolt.service.ProduceService.printAllCategoryMultipliers();
 
         boolean running = true;
         while (running) {
@@ -110,11 +111,11 @@ public class Main {
             return;
         }
             System.out.printf("Delivery %s recorded. Grade %s%n", delivery.getDeliveryId(), delivery.getGrade());
-            System.out.printf("Base value %.2f MUR%n", delivery.baseValue());
-            System.out.printf("Graded value %.2f MUR%n", delivery.gradedValue());
-            System.out.printf("Categorised value %.2f MUR%n", delivery.categorisedValue());
-            System.out.printf("Commission %.2f MUR%n", delivery.commission());
-            System.out.printf("Transport levy %.2f MUR%n", delivery.transportLevy());
+            System.out.printf("Base value: %.2f MUR%n", delivery.baseValue());
+            System.out.printf("Graded value: %.2f MUR%n", delivery.gradedValue());
+            System.out.printf("Categorised value: %.2f MUR%n", delivery.categorisedValue());
+            System.out.printf("Commission: %.2f MUR%n", delivery.commission());
+            System.out.printf("Transport levy: %.2f MUR%n", delivery.transportLevy());
             System.out.printf("NET PAYABLE = %.2f MUR%n", delivery.netPayable());
     }
 
@@ -143,7 +144,6 @@ public class Main {
             for (int col = 0; col < grid[week].length; col++) {
                 System.out.printf("%8.1f", grid[week][col]);
             }
-
             System.out.println();
         }
     }

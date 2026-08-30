@@ -36,6 +36,7 @@ public class SeasonService {
         String memberId = delivery.getMember().getId();
         // Add member ID to the set
         memberIds.add(memberId);
+        delivery.getMember().addDelivery(delivery);
         // Update the member's total payment
         double runningTotal = paymentPerMember.getOrDefault(memberId, 0.0);
         paymentPerMember.put(memberId, runningTotal + delivery.netPayable());
