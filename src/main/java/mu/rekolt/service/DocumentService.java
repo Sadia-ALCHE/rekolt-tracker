@@ -99,7 +99,7 @@ public class DocumentService {
         XWPFRun totalsRun = totals.createRun();
         totalsRun.setText(String.format("Total commission: %.2f MUR", totalCommission));
         totalsRun.addBreak();
-        totalsRun.setText(String.format("\nTotal transport levy: %.2f MUR", totalLevy));
+        totalsRun.setText(String.format("Total transport levy: %.2f MUR", totalLevy));
 
         // Net payable
         XWPFParagraph netPara = document.createParagraph();
