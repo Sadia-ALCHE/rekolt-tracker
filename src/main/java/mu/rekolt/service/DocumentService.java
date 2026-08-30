@@ -98,7 +98,7 @@ public class DocumentService {
         XWPFParagraph totals = document.createParagraph();
         XWPFRun totalsRun = totals.createRun();
         totalsRun.setText(String.format("Total commission: %.2f MUR", totalCommission));
-        totalsRun.setText(String.format("Total transport levy: %.2f MUR", totalLevy));
+        totalsRun.setText(String.format("\nTotal transport levy: %.2f MUR", totalLevy));
 
         // Net payable
         XWPFParagraph netPara = document.createParagraph();
@@ -112,7 +112,7 @@ public class DocumentService {
         XWPFParagraph signature = document.createParagraph();
         XWPFRun sigRun = signature.createRun();
         sigRun.setText("Signature: ___________________________");
-        sigRun.setText("Date: ________________________________");
+        sigRun.setText("\nDate: ________________________________");
     }
     private void writeClosingSection(XWPFDocument document, List<Member> members) {
         XWPFParagraph heading = document.createParagraph();
