@@ -34,12 +34,15 @@ public class SeasonService {
         deliveries.add(delivery);
 
         String memberId = delivery.getMember().getId();
+
         // Add member ID to the set
         memberIds.add(memberId);
         delivery.getMember().addDelivery(delivery);
+
         // Update the member's total payment
         double runningTotal = paymentPerMember.getOrDefault(memberId, 0.0);
         paymentPerMember.put(memberId, runningTotal + delivery.netPayable());
+
         // Create a list if this member has not made a delivery yet
         if (!deliveriesPerMember.containsKey(memberId)) {
             deliveriesPerMember.put(memberId, new ArrayList<>());
@@ -89,6 +92,7 @@ public class SeasonService {
     public Map<String, List<Delivery>> getDeliveriesPerMember() {
         return deliveriesPerMember;
     }
+
     // Returns a copy of deliveries with REJECT grades removed using an Iterator.
     public List<Delivery> deliveriesWithRejectedRemoved() {
         List<Delivery> copy = new ArrayList<>(deliveries);
