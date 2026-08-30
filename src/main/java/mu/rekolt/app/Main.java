@@ -46,6 +46,7 @@ public class Main {
 
     public void run() {
         System.out.println("REKOLT Planters' Cooperative Produce Tracker - Season 2026");
+        mu.rekolt.service.ProduceService.printAllCategoryMultipliers();
 
         boolean running = true;
         while (running) {
