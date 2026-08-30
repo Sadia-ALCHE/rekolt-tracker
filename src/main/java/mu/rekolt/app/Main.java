@@ -5,8 +5,10 @@ import mu.rekolt.model.Member;
 import mu.rekolt.model.Produce;
 import mu.rekolt.service.ProduceService;
 import mu.rekolt.service.SeasonService;
+import mu.rekolt.service.DocumentService;
 import mu.rekolt.util.InputValidator;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.Optional;
 
@@ -60,7 +62,7 @@ public class Main {
                     printSeasonFigures();
                     break;
                 case 3:
-                    System.out.println("Season report generation loading");
+                    generateSeasonReport();
                     break;
                 case 4:
                     System.out.println("Goodbye.");
@@ -145,6 +147,17 @@ public class Main {
                 System.out.printf("%8.1f", grid[week][col]);
             }
             System.out.println();
+        }
+    }
+    private void generateSeasonReport() {
+        DocumentService documentService = new DocumentService();
+        try {
+            System.out.println("Generating season report...");
+            documentService.writeSeasonReport(season, "output/season-report.docx", "output/run-log.txt");
+            System.out.println("Report generated successfully.");
+        } catch (IOException e) {
+            System.out.println("Could not generate the season report.");
+            System.out.println("Reason: " + e.getMessage());
         }
     }
 }
