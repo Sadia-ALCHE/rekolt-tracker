@@ -5,6 +5,8 @@ import mu.rekolt.model.CerealProduce;
 import mu.rekolt.model.PerishableProduce;
 import mu.rekolt.model.Produce;
 
+import java.util.List;
+
 // The fixed price used to build the correct Produce for a given code via a switch statement.
 public final class ProduceService {
     private static final String[] CODES = {"MZE", "BNS", "POT", "TEA"};
@@ -55,6 +57,20 @@ public final class ProduceService {
             default:
                 // Invalid codes are already handled by isValidCode.
                 throw new IllegalArgumentException("Unknown produce code: " + code);
+        }
+    }
+
+    // Prints the multiplier for each type of produce.
+    public static void printAllCategoryMultipliers() {
+        List<Produce> produceTypes = List.of(
+                createProduce("MZE"),
+                createProduce("BNS"),
+                createProduce("POT"),
+                createProduce("TEA")
+        );
+
+        for (Produce produce : produceTypes) {
+            System.out.printf("%s (%s): x%.2f%n", produce.getCode(), produce.getCategoryName(), produce.getCategoryMultiplier());
         }
     }
 }
