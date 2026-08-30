@@ -5,6 +5,8 @@ import mu.rekolt.model.Member;
 import org.apache.poi.xwpf.usermodel.BreakType;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import java.io.FileOutputStream;
@@ -53,5 +55,60 @@ public class DocumentService {
         headingRun.setText(member.getId() + " - " + member.getName());
         headingRun.setBold(true);
         headingRun.setFontSize(16);
+
+        List<Delivery> deliveries = season.getDeliveriesPerMember().get(member.getId());
+        XWPFTable table = document.createTable(deliveries.size() + 1, 6);
+
+        // Header row
+        XWPFTableRow header = table.getRow(0);
+        header.getCell(0).setText("Delivery");
+        header.getCell(1).setText("Produce");
+        header.getCell(2).setText("Mass");
+        header.getCell(3).setText("Grade");
+        header.getCell(4).setText("Commission");
+        header.getCell(5).setText("Net payable");
+
+        double totalCommission = 0.0;
+        double totalLevy = 0.0;
+        double totalNet = 0.0;
+
+        // Add each delivery to the table
+        for (int i = 0; i < deliveries.size(); i++) {
+            Delivery delivery = deliveries.get(i);
+            XWPFTableRow row = table.getRow(i + 1);
+
+            double commission = delivery.commission();
+            double levy = delivery.transportLevy();
+            double net = delivery.netPayable();
+
+            row.getCell(0).setText(delivery.getDeliveryId());
+            row.getCell(1).setText(delivery.getProduce().getCode());
+            row.getCell(2).setText(String.format("%.1f", delivery.getMass()));
+            row.getCell(3).setText(delivery.getGrade().toString());
+            row.getCell(4).setText(String.format("%.2f", commission));
+            row.getCell(5).setText(String.format("%.2f", net));
+            totalCommission += commission;
+            totalLevy += levy;
+            totalNet += net;
+        }
+        // Member totals
+        XWPFParagraph totals = document.createParagraph();
+        XWPFRun totalsRun = totals.createRun();
+        totalsRun.setText(String.format("Total commission: %.2f MUR", totalCommission));
+        totalsRun.setText(String.format("Total transport levy: %.2f MUR", totalLevy));
+
+        // Net payable
+        XWPFParagraph netPara = document.createParagraph();
+        XWPFRun netRun = netPara.createRun();
+        netRun.setBold(true);
+        netRun.setFontSize(13);
+        netRun.setText(
+                "NET PAYABLE TO " + member.getName().toUpperCase() + ": " + String.format("%.2f", totalNet) + " MUR");
+
+        // Signature
+        XWPFParagraph signature = document.createParagraph();
+        XWPFRun sigRun = signature.createRun();
+        sigRun.setText("Signature: ___________________________");
+        sigRun.setText("Date: ________________________________");
     }
 }
