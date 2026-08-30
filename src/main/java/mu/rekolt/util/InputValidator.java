@@ -83,8 +83,7 @@ public class InputValidator {
         return readWholeNumberInRange(prompt, 1, 20, "Week must be a whole number from 1 to 20.");
     }
 
-    // Shared by readQualityScore and readWeek, both just need a whole
-    // number inside some range, so this one method backs both of them.
+    // Shared by readQualityScore and readWeek for range-checked integers
     private int readWholeNumberInRange(String prompt, int min, int max, String errorMessage) {
         while (true) {
             System.out.print(prompt);
