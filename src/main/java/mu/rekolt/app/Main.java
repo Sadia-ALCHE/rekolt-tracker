@@ -151,6 +151,16 @@ public class Main {
         }
 
         System.out.println();
+        System.out.println("Member summaries");
+        for (String id : season.getMemberIds()) {
+            List<Delivery> memberDeliveries = season.getDeliveriesPerMember().get(id);
+            if (memberDeliveries != null && !memberDeliveries.isEmpty()) {
+                Member member = memberDeliveries.get(0).getMember();
+                System.out.println(member.summaryLine());
+            }
+        }
+
+        System.out.println();
         System.out.println("Top five deliveries by value");
         List<Delivery> topFive = season.topDeliveriesByValue(5);
         int rank = 1;
