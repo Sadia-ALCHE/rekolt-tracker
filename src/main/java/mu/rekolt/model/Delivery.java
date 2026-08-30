@@ -1,7 +1,10 @@
 package mu.rekolt.model;
 
+import mu.rekolt.service.Payable;
+import mu.rekolt.service.Reportable;
+
 // One weighed load from one member. Runs the five payment steps.
-public class Delivery implements Comparable<Delivery> {
+public class Delivery implements Comparable<Delivery>, Payable, Reportable {
 
     private final String deliveryId;
     private final Member member;
@@ -63,11 +66,18 @@ public class Delivery implements Comparable<Delivery> {
         return mass * 2.0;
     }
 
+    @Override
     public double netPayable() {
         if (grade == Grade.REJECT) {
             return 0.0;
         }
         return categorisedValue() - commission() - transportLevy();
+    }
+
+    @Override
+    public String summaryLine() {
+        return deliveryId + " " + member.getId() + " " + produce.getCode()
+                + " " + mass + " kg " + grade + " " + netPayable();
     }
 
     // Lets deliveries be sorted automatically, highest net payable first.
