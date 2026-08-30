@@ -16,19 +16,19 @@ import java.util.List;
 
 // Creates the season report as a Word document.
 public class DocumentService {
-    public void writeSeasonReport(SeasonService season, String docxPath) throws IOException {
+    public void writeSeasonReport(SeasonService season, String docxPath, String logPath) throws IOException {
+        List<Member> members = new ArrayList<>();
+        for(String id : season.getMemberIds()) {
+            List<Delivery> deliveries = season.getDeliveriesPerMember().get(id);
+            if (deliveries != null && !deliveries.isEmpty()) {
+                members.add(deliveries.get(0).getMember());
+            }
+        }
+
         // The document and file are closed automatically after use.
         try (XWPFDocument document = new XWPFDocument();
              FileOutputStream out = new FileOutputStream(docxPath)) {
 
-            List<Member> members = new ArrayList<>();
-            for(String id : season.getMemberIds()) {
-                List<Delivery> deliveries = season.getDeliveriesPerMember().get(id);
-
-                if (deliveries != null && !deliveries.isEmpty()) {
-                    members.add(deliveries.get(0).getMember());
-                }
-            }
             boolean firstMember = true;
             for (Member member : members) {
                 if (!firstMember) {
@@ -37,8 +37,11 @@ public class DocumentService {
                 writeMemberSection(document, season, member);
                 firstMember = false;
             }
+            startNewPage(document);
+            writeClosingSection(document, members);
             document.write(out);
         }
+        appendRunLog(logPath, members.size());
     }
 
     private void startNewPage(XWPFDocument document) {
@@ -110,5 +113,42 @@ public class DocumentService {
         XWPFRun sigRun = signature.createRun();
         sigRun.setText("Signature: ___________________________");
         sigRun.setText("Date: ________________________________");
+    }
+    private void writeClosingSection(XWPFDocument document, List<Member> members) {
+        XWPFParagraph heading = document.createParagraph();
+        XWPFRun run = heading.createRun();
+        run.setText("Season totals");
+        run.setBold(true);
+        run.setFontSize(16);
+
+        XWPFTable table = document.createTable(members.size() + 1, 2);
+        table.getRow(0).getCell(0).setText("Member");
+        table.getRow(0).getCell(1).setText("Net payable (MUR)");
+
+        double seasonTotal = 0.0;
+        for (int i = 0; i < members.size(); i++) {
+            Member member = members.get(i);
+            double total = member.netPayable();
+            XWPFTableRow row = table.getRow(i + 1);
+            row.getCell(0).setText(member.getId() + " " + member.getName());
+            row.getCell(1).setText(String.format("%.2f", total));
+            seasonTotal += total;
+        }
+
+        XWPFParagraph totalParagraph = document.createParagraph();
+        XWPFRun totalRun = totalParagraph.createRun();
+        totalRun.setBold(true);
+        totalRun.setFontSize(13);
+        totalRun.setText("TOTAL PAYABLE FOR THE SEASON: " + String.format("%.2f", seasonTotal) + " MUR");
+    }
+
+    private void appendRunLog(String logPath, int sectionCount) throws IOException {
+        String timestamp = java.time.LocalDateTime.now()
+                .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String line = timestamp + " - report of the season generated, " + sectionCount + " member sections" + System.lineSeparator();
+
+        try (java.io.FileWriter writer = new java.io.FileWriter(logPath, true)) {
+            writer.write(line);
+        }
     }
 }
