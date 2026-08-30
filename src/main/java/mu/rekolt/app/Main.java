@@ -155,7 +155,7 @@ public class Main {
         List<Delivery> topFive = season.topDeliveriesByValue(5);
         int rank = 1;
         for (Delivery delivery : topFive) {
-            System.out.printf("%d. %s%n", rank, delivery);
+            System.out.printf("%d. %s%n", rank, delivery.summaryLine());
             rank++;
         }
 
