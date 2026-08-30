@@ -9,6 +9,7 @@ import mu.rekolt.service.DocumentService;
 import mu.rekolt.util.InputValidator;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Optional;
 
@@ -148,6 +149,34 @@ public class Main {
             }
             System.out.println();
         }
+
+        System.out.println();
+        System.out.println("Top five deliveries by value");
+        List<Delivery> topFive = season.topDeliveriesByValue(5);
+        int rank = 1;
+        for (Delivery delivery : topFive) {
+            System.out.printf("%d. %s%n", rank, delivery);
+            rank++;
+        }
+
+        System.out.println();
+        System.out.println("Total payment per member (MUR)");
+        for (String memberId : season.getPaymentPerMember().keySet()) {
+            double total = season.getPaymentPerMember().get(memberId);
+            System.out.printf("%s : %.2f%n", memberId, total);
+        }
+
+        System.out.println();
+        Optional<Delivery> found = season.findDeliveryById("D-1001");
+        if (found.isPresent()) {
+            System.out.println("Search test - found D-1001: " + found.get());
+        } else {
+            System.out.println("Search test - D-1001 not found.");
+        }
+
+        List<Delivery> withoutRejects = season.deliveriesWithRejectedRemoved();
+        System.out.println("Deliveries total: " + season.getDeliveries().size()
+                + ", without REJECT: " + withoutRejects.size());
     }
     private void generateSeasonReport() {
         DocumentService documentService = new DocumentService();
